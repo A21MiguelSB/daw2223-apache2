@@ -3,14 +3,19 @@ services:
   web:
     build: apache
     ports:
-      - 80:80
-      - 443:443
+       - 80:80
+       - 443:443
     volumes:
-      - ./starwars:/app/starwars
-      - ./startrek:/app/startrek
-      - ./palpatine:/app/palpatine
-      - ./apache/startrek.conf:/etc/apache2/sites-enabled/startrek.conf
-      - ./apache/starwars.conf:/etc/apache2/sites-enabled/starwars.conf
-      - ./apache/starwars-ssl.conf:/etc/apache2/sites-enabled/starwars-ssl.conf
-      - ./apache/cert.pem:/etc/ssl/certs/cert.pem
-      - ./apache/chave.key:/etc/ssl/private/chave.key
+       - ./apache/prestashop.conf:/etc/apache2/sites-enabled/prestashop.conf
+       - ./prestashop:/app/prestashop       
+  db:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: abc123.
+      MYSQL_DATABASE: presta
+      MYSQL_USER: prestauser
+      MYSQL_PASSWORD: prestapw
+    volumes:
+       - basedatos:/var/lib/mysql
+volumes:
+  basedatos:

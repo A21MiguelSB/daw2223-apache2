@@ -1,12 +1,13 @@
-FROM debian
-
+FROM debian:latest
 RUN apt update && apt install -y apache2 php libapache2-mod-php
 
-RUN a2enmod ssl
+RUN apt install -y php-zip php-xml php-curl php-gd php-mysql php-intl php-mbstring
 
 EXPOSE 80
 EXPOSE 443
 
-WORKDIR /app
+RUN a2enmod ssl
+RUN a2enmod rewrite
 
-CMD apachectl -D FOREGROUND
+CMD chmod 777 /app/prestashop/ && apachectl -D FOREGROUND
+#CMD apachectl -D FOREGROUND
